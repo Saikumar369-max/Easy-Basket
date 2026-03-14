@@ -1,0 +1,13 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+
+# build artifacts
+build/
+dist/
+
+# editor settings
+.vscode/
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart — Easy Basket</title>
+    <meta name="description" content="View and manage your shopping cart on Easy Basket.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/shopping.css">
+    <link rel="stylesheet" href="./css/category-products.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/orders.css">
+    <link rel="stylesheet" href="./css/profile.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="shopping.html" class="nav-logo">🛒 Easy Basket</a>
+        <div class="nav-actions">
+            <span class="nav-greeting" id="userGreeting">Hello 👋</span>
+            <a href="my-orders.html" class="orders-nav-btn" title="My Orders">📋 My Orders</a>
+            <a href="cart.html" class="cart-nav-btn" title="View Cart">
+                🛒 Cart
+                <span class="cart-badge" id="cartBadge"></span>
+            </a>
+            <a href="profile.html" class="profile-nav-btn" title="View Profile">👤 Profile</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="shopping.html">🏠 Home</a>
+        <span class="bc-sep">›</span>
+        <span class="bc-active">My Cart</span>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <a href="#" class="back-btn" onclick="history.back(); return false;">← Continue Shopping</a>
+
+    <!-- MAIN CONTENT -->
+    <main class="cart-main" id="cartMain">
+
+        <!-- Skeleton loaders -->
+        <div id="skeletonCol">
+            <h2 class="cart-heading"><span>🛒</span> My Cart</h2>
+            <div class="cart-items-list">
+                <div class="cart-skeleton-item"></div>
+                <div class="cart-skeleton-item"></div>
+                <div class="cart-skeleton-item"></div>
+            </div>
+        </div>
+        <div id="skeletonSidebar" class="cart-summary" style="height:200px; animation: shimmer 1.4s infinite;"></div>
+
+        <!-- Actual content (hidden until loaded) -->
+        <div id="itemsCol" style="display:none;">
+            <h2 class="cart-heading"><span>🛒</span> My Cart <small id="itemCountLabel"
+                    style="font-size:0.85rem;font-weight:400;color:#64748b;"></small></h2>
+            <div class="cart-items-list" id="cartItemsList"></div>
+        </div>
+
+        <aside class="cart-summary" id="summaryPanel" style="display:none;">
+            <h3 class="summary-title">Order Summary</h3>
+            <div class="summary-row">
+                <span>Items</span>
+                <span id="summaryItemCount">0</span>
+            </div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="summarySubtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span style="color:#34d399;">FREE</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="summaryTotal">₹0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">🛍️ Buy Now</button>
+        </aside>
+
+        <!-- Empty state -->
+        <div class="cart-empty" id="emptyState" style="display:none;">
+            <span class="empty-emoji">🛒</span>
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added anything yet.</p>
+            <a href="shopping.html">Start Shopping →</a>
+        </div>
+
+    </main>
+
+    <!-- ======= CHECKOUT OVERLAY ======= -->
+    <div class="co-backdrop" id="coBackdrop"></div>
+    <div class="co-panel" id="coPanel">
+        <button class="co-close" id="coClose" title="Close">✕</button>
+        <div class="co-header">
+            <span class="co-icon">📦</span>
+            <div>
+                <h2 class="co-title">Confirm Your Order</h2>
+                <p class="co-sub">Review details below and place your order</p>
+            </div>
+        </div>
+
+        <!-- Delivery address -->
+        <div class="co-section">
+            <div class="co-label-row">
+                <label class="co-label">📍 Delivery Address</label>
+                <button class="co-change-btn" id="coChangeAddrBtn" onclick="toggleAddressEdit()">✏️ Change</button>
+            </div>
+
+            <!-- Saved address display card (default view) -->
+            <div class="co-addr-card" id="coAddrCard">
+                <span class="co-addr-icon">🏠</span>
+                <span class="co-addr-text" id="coAddrText">Loading address…</span>
+            </div>
+
+            <!-- Editable textarea (shown when user clicks Change) -->
+            <textarea id="coAddress" class="co-textarea" placeholder="Enter your full delivery address…" rows="3"
+                style="display:none;"></textarea>
+        </div>
+
+        <!-- Delivery time -->
+        <div class="co-section">
+            <div class="co-label">🕐 Estimated Delivery</div>
+            <div class="co-delivery-time" id="coDeliveryTime">Calculating…</div>
+        </div>
+
+        <!-- Order total -->
+        <div class="co-section">
+            <div class="co-total-row">
+                <span class="co-label">💰 Order Total</span>
+                <span class="co-total-value" id="coTotal">₹0</span>
+            </div>
+        </div>
+
+        <!-- Payment method -->
+        <div class="co-section">
+            <div class="co-label">💳 Payment Method</div>
+            <label class="co-radio-card">
+                <input type="radio" name="payment" value="cod" checked>
+                <span class="co-radio-inner">
+                    <span class="co-radio-icon">💵</span>
+                    <span>
+                        <strong>Cash on Delivery</strong>
+                        <small>Pay when your order arrives</small>
+                    </span>
+                    <span class="co-radio-check">✔</span>
+                </span>
+            </label>
+        </div>
+
+        <!-- Place order button -->
+        <button class="co-place-btn" id="coPlaceBtn">🚀 Place Order</button>
+        <p class="co-note">By placing the order you agree to our terms of service.</p>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">🛒 Easy Basket</div>
+        <p class="footer-copy">© 2026 Easy Basket. Fresh, fast, and local.</p>
+    </footer>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/cart.js"></script>
+</body>
+
+</html>

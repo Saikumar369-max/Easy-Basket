@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyBasket - Premium Groceries</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0a0a0a',
+                        primary: '#ea580c',
+                        surface: 'rgba(255, 255, 255, 0.03)',
+                        surfaceBorder: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glass-panel {
+            background: var(--surface, rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--surfaceBorder, rgba(255, 255, 255, 0.1));
+        }
+
+        /* Hide scrollbar for a cleaner look while maintaining scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+    </style>
+
+    <!-- React, ReactDOM, Babel, and Framer Motion -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+        const { useState, useEffect, useRef } = React;
+        const { motion, AnimatePresence } = window.Motion;
+
+        // Custom Minimal Icons Component (Lucide Replacements)
+        const SearchIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>;
+        const CartIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1" /><circle cx="19" cy="21" r="1" /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>;
+        const ShieldCheckIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="m9 12 2 2 4-4" /></svg>;
+        const ClockIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>;
+        const StarIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>;
+        const LeafIcon = ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg>;
+
+        const AmbientGlow = () => {
+            const [position, setPosition] = useState({ x: 0, y: 0 });
+            const [isPressed, setIsPressed] = useState(false);
+
+            useEffect(() => {
+                let animationFrameId;
+
+                const handleMouseMove = (e) => {
+                    // Use requestAnimationFrame for smooth cursor tracking
+                    animationFrameId = requestAnimationFrame(() => {
+                        setPosition({ x: e.clientX, y: e.clientY });
+                    });
+                };
+                const handleMouseDown = () => setIsPressed(true);
+                const handleMouseUp = () => setIsPressed(false);
+
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mousedown', handleMouseDown);
+                window.addEventListener('mouseup', handleMouseUp);
+
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('mousedown', handleMouseDown);
+                    window.removeEventListener('mouseup', handleMouseUp);
+                    cancelAnimationFrame(animationFrameId);
+                };
+            }, []);
+
+            return (
+                <div
+                    className="pointer-events-none fixed top-0 left-0 w-[500px] h-[500px] rounded-full z-[9999] transition-opacity duration-300"
+                    style={{
+                        transform: `translate(calc(${position.x}px - 250px), calc(${position.y}px - 250px))`,
+                        background: 'radial-gradient(circle, rgba(234,88,12,0.15) 0%, rgba(234,88,12,0) 60%)',
+                        opacity: isPressed ? 0.9 : 0.4,
+                        willChange: 'transform, opacity'
+                    }}
+                />
+            );
+        };
+
+        const App = () => {
+            const [isClicked, setIsClicked] = useState(false);
+
+            // Global click effect specifically for expanding the logo text
+            useEffect(() => {
+                const handleGlobalClick = () => {
+                    setIsClicked(true);
+                    setTimeout(() => setIsClicked(false), 400); // revert back smoothly
+                };
+                window.addEventListener('click', handleGlobalClick);
+                return () => window.removeEventListener('click', handleGlobalClick);
+            }, []);
+
+            return (
+                <div className="min-h-screen relative overflow-hidden font-sans text-gray-100">
+                    <AmbientGlow />
+
+                    {/* Background Gradients */}
+                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+                        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px]" />
+                        <div className="absolute bottom-[-20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-primary/5 blur-[150px]" />
+                    </div>
+
+                    {/* Navbar */}
+                    <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b border-surfaceBorder/50">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            {/* Logo */}
+                            <div className="flex items-center gap-3 cursor-pointer">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center shadow-[0_0_20px_rgba(234,88,12,0.4)]">
+                                    <LeafIcon className="text-white" />
+                                </div>
+                                <motion.span
+                                    animate={{ letterSpacing: isClicked ? '0.15em' : '0em' }}
+                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                    className="font-bold text-xl tracking-tight"
+                                >
+                                    EasyBasket
+                                </motion.span>
+                            </div>
+
+                            {/* Links */}
+                            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                                <a href="#" className="hover:text-white transition-colors">Discover</a>
+                                <a href="#" className="hover:text-white transition-colors">Categories</a>
+                                <a href="#" className="hover:text-white transition-colors">Markets</a>
+                                <a href="#" className="hover:text-white transition-colors">About Us</a>
+                            </div>
+
+                            {/* Actions */}
+                            <div className="flex items-center gap-5">
+                                <button className="text-gray-400 hover:text-white transition-colors">
+                                    <SearchIcon />
+                                </button>
+                                <button className="text-gray-400 hover:text-white transition-colors relative">
+                                    <CartIcon />
+                                    <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-primary text-[9px] font-bold flex items-center justify-center rounded-full text-white">
+                                        3
+                                    </span>
+                                </button>
+                                <a href="login.html" className="ml-2 glass-panel hover:bg-white/10 px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-sm">
+                                    Sign In
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <main className="max-w-7xl mx-auto px-6 pt-32 pb-20 mt-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                            {/* Left Content */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -40 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                className="flex flex-col items-start gap-6"
+                            >
+                                <div className="glass-panel px-4 py-1.5 rounded-full border-primary/30 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                    <span className="text-xs font-semibold text-primary uppercase tracking-wider">Rated #1 in Premium Quality</span>
+                                </div>
+
+                                <h1 className="text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight">
+                                    Elevate Your <br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-300">
+                                        Grocery
+                                    </span> Experience.
+                                </h1>
+
+                                <p className="text-lg text-gray-400 max-w-xl leading-relaxed mt-2">
+                                    Discover a curated selection of fresh, organic, and artisanal ingredients delivered directly to your doorstep with uncompromising quality and speed.
+                                </p>
+
+                                <div className="flex items-center gap-4 mt-4 w-full sm:w-auto">
+                                    <button onClick={() => window.location.href = 'login.html'} className="bg-primary hover:bg-orange-500 text-white px-8 py-4 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] transform hover:-translate-y-1">
+                                        Start Shopping
+                                    </button>
+                                    <button className="glass-panel hover:bg-white/5 px-8 py-4 rounded-full font-semibold transition-all">
+                                        Explore Markets
+                                    </button>
+                                </div>
+                            </motion.div>
+
+                            {/* Right Image Content */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                                className="relative w-full aspect-[4/5] lg:aspect-square rounded-3xl overflow-hidden glass-panel p-2"
+                            >
+                                <div className="relative w-full h-full rounded-2xl overflow-hidden group">
+                                    {/* Image */}
+                                    <img
+                                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                                        alt="Fresh organic groceries"
+                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    {/* Overlay Gradient */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                                    {/* Floating Info Box */}
+                                    <motion.div
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        transition={{ delay: 1, duration: 0.6 }}
+                                        className="absolute bottom-6 left-6 right-6 glass-panel rounded-2xl p-5 border-white/10"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                                                <ShieldCheckIcon className="w-6 h-6" />
+                                            </div>
+                                            <div>
+                                                <h3 className="font-semibold text-white">Freshness Guaranteed</h3>
+                                                <p className="text-sm text-gray-400">Hand-picked daily from local organic farms</p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+
+                        </div>
+                    </main>
+
+                    {/* Features Grid */}
+                    <section className="max-w-7xl mx-auto px-6 py-20 border-t border-surfaceBorder/30">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {[
+                                { icon: ShieldCheckIcon, title: "Certified Sources", desc: "We partner exclusively with verified organic farms and premium local vendors." },
+                                { icon: ClockIcon, title: "Timed Delivery", desc: "Schedule your delivery down to the hour. We respect your time with precision." },
+                                { icon: StarIcon, title: "Premium Quality", desc: "Every item is meticulously inspected before it reaches your delivery basket." }
+                            ].map((feature, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: idx * 0.15 }}
+                                    className="glass-panel p-8 rounded-3xl hover:bg-white/5 transition-colors cursor-default"
+                                >
+                                    <div className="w-12 h-12 rounded-full bg-surface border border-surfaceBorder flex items-center justify-center text-primary mb-6">
+                                        <feature.icon className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                                    <p className="text-gray-400 leading-relaxed text-sm">{feature.desc}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="border-t border-surfaceBorder/30 py-8 text-center text-sm text-gray-500">
+                        <p>© {new Date().getFullYear()} EasyBasket. All rights reserved. Crafted for excellence.</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

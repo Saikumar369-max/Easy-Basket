@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard — Easy Basket</title>
+    <meta name="description" content="Manage your shop orders and business on Easy Basket.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/owner-dashboard.css">
+</head>
+
+<body>
+    <div class="dashboard-wrap">
+
+        <!-- ======= SIDEBAR ======= -->
+        <aside class="sidebar" id="sidebar">
+            <a href="owner-dashboard.html" class="sidebar-logo">
+                <span>🛒</span> Easy Basket
+            </a>
+
+            <ul class="sidebar-nav">
+                <li class="active" id="nav-overview">
+                    <a href="#" onclick="showTab('overview'); return false;">
+                        <span class="nav-icon">📊</span> Overview
+                    </a>
+                </li>
+                <li id="nav-orders">
+                    <a href="#" onclick="showTab('orders'); return false;">
+                        <span class="nav-icon">📋</span> Orders
+                    </a>
+                </li>
+                <div class="sidebar-divider"></div>
+                <li id="nav-store">
+                    <a href="#" onclick="showTab('store'); return false;">
+                        <span class="nav-icon">🏪</span> My Store
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-owner">
+                    <strong id="ownerName">Loading...</strong>
+                    <span id="ownerEmail"></span>
+                </div>
+                <button class="btn-logout" id="logoutBtn" title="Logout">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ======= MAIN PANEL ======= -->
+        <div class="main-panel">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <button class="ham-btn" id="hamBtn" title="Toggle menu">☰</button>
+                    <span class="topbar-title" id="topbarTitle">Overview</span>
+                </div>
+                <div class="topbar-right">
+                    <button class="refresh-btn" id="refreshOrdersBtn" title="Refresh orders" onclick="refreshOrders()">
+                        🔄 Refresh
+                    </button>
+                    <div class="topbar-shop-badge" id="shopBadge">
+                        🏪 <span id="shopName">My Shop</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ======= PAGE CONTENT ======= -->
+            <div class="page-content">
+
+                <!-- ── OVERVIEW TAB ── -->
+                <div class="tab-panel active" id="tab-overview">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">📋</div>
+                            <div class="stat-body">
+                                <div class="value" id="statTotal">—</div>
+                                <div class="label">Total Orders</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon amber">🕐</div>
+                            <div class="stat-body">
+                                <div class="value" id="statPending">—</div>
+                                <div class="label">Pending</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">✅</div>
+                            <div class="stat-body">
+                                <div class="value" id="statCompleted">—</div>
+                                <div class="label">Completed</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">💰</div>
+                            <div class="stat-body">
+                                <div class="value" id="statRevenue">—</div>
+                                <div class="label">Revenue</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent orders preview -->
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">Recent Orders</div>
+                            <div class="section-sub">Last 5 orders for your shop</div>
+                        </div>
+                        <button class="filter-pill" onclick="showTab('orders')">View All →</button>
+                    </div>
+                    <div class="orders-table-wrap" id="recentOrdersWrap">
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                    </div>
+                </div>
+
+                <!-- ── ORDERS TAB ── -->
+                <div class="tab-panel" id="tab-orders">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">📋 All Orders</div>
+                            <div class="section-sub" id="ordersCount">Loading...</div>
+                        </div>
+                        <div class="filter-pills">
+                            <button class="filter-pill active" id="pill-all"
+                                onclick="filterOrders('all')">All</button>
+                            <button class="filter-pill" id="pill-pending"
+                                onclick="filterOrders('pending')">Pending</button>
+                            <button class="filter-pill" id="pill-completed"
+                                onclick="filterOrders('completed')">Completed</button>
+                            <button class="filter-pill" id="pill-cancelled"
+                                onclick="filterOrders('cancelled')">Cancelled</button>
+                        </div>
+                    </div>
+
+                    <div class="orders-table-wrap" id="ordersTableWrap">
+                        <!-- skeleton -->
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                        <div class="skeleton-row"></div>
+                    </div>
+
+                    <div class="empty-state" id="ordersEmpty" style="display:none;">
+                        <span class="es-emoji">📭</span>
+                        <h3>No orders yet</h3>
+                        <p>Orders placed by customers will appear here.</p>
+                    </div>
+                </div>
+
+                <!-- ── STORE TAB ── -->
+                <div class="tab-panel" id="tab-store">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">🏪 My Store Products</div>
+                            <div class="section-sub" id="storeProductCount">Loading products...</div>
+                        </div>
+                        <button class="btn-add-product" id="addProductBtn" onclick="openAddProductModal()">
+                            ➕ Add Product
+                        </button>
+                    </div>
+                    <div class="store-products-grid" id="storeProductsGrid">
+                        <div class="skeleton-row" style="height:120px;border-radius:14px;"></div>
+                        <div class="skeleton-row" style="height:120px;border-radius:14px;"></div>
+                        <div class="skeleton-row" style="height:120px;border-radius:14px;"></div>
+                        <div class="skeleton-row" style="height:120px;border-radius:14px;"></div>
+                    </div>
+                    <div class="empty-state" id="storeEmpty" style="display:none;">
+                        <span class="es-emoji">📦</span>
+                        <h3>No products yet</h3>
+                        <p>Products you add to your shop will appear here.</p>
+                    </div>
+                </div>
+
+            </div><!-- /page-content -->
+
+        </div><!-- /main-panel -->
+    </div><!-- /dashboard-wrap -->
+
+    <!-- ── Order Detail Drawer ── -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer" id="orderDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Order Details</div>
+            <button class="drawer-close" onclick="closeDrawer()">✕</button>
+        </div>
+        <div id="drawerContent"><!-- filled by JS --></div>
+    </div>
+
+    <!-- ── Add Product Modal ── -->
+    <div class="modal-overlay" id="addProductOverlay" onclick="closeAddProductModal()"></div>
+    <div class="modal-panel" id="addProductModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">➕ Add New Product</div>
+            <button class="modal-close" onclick="closeAddProductModal()" title="Close">✕</button>
+        </div>
+        <div class="modal-body">
+            <form id="addProductForm" onsubmit="submitAddProduct(event)" novalidate>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="ap-name">Product Name <span class="req">*</span></label>
+                    <input type="text" id="ap-name" name="name" placeholder="e.g. Organic Basmati Rice" required />
+                </div>
+
+                <!-- Short Description -->
+                <div class="form-group">
+                    <label for="ap-short">Short Description <span class="req">*</span></label>
+                    <input type="text" id="ap-short" name="shortDescription" placeholder="One-line summary" maxlength="120" required />
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="ap-desc">Full Description <span class="req">*</span></label>
+                    <textarea id="ap-desc" name="description" rows="3" placeholder="Detailed product description..." required></textarea>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="ap-category">Category</label>
+                    <select id="ap-category" name="categoryId">
+                        <option value="">— Select category —</option>
+                    </select>
+                </div>
+
+                <!-- Price row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ap-mrp">MRP (₹)</label>
+                        <input type="number" id="ap-mrp" name="mrp" placeholder="0.00" min="0" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ap-selling">Selling Price (₹)</label>
+                        <input type="number" id="ap-selling" name="sellingprice" placeholder="0.00" min="0" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ap-discount">Discount (%)</label>
+                        <input type="number" id="ap-discount" name="discount" placeholder="0" min="0" max="100" step="1" />
+                    </div>
+                </div>
+
+                <!-- Stock row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ap-qty">Stock Quantity</label>
+                        <input type="number" id="ap-qty" name="quantity" placeholder="0" min="0" step="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ap-unit">Unit</label>
+                        <input type="text" id="ap-unit" name="unit" placeholder="e.g. kg, pcs, litre" />
+                    </div>
+                </div>
+
+                <!-- Image upload -->
+                <div class="form-group">
+                    <label>Product Image <span class="req">*</span></label>
+                    <div class="img-upload-box" id="imgUploadBox" onclick="document.getElementById('ap-image').click()">
+                        <img id="imgPreview" src="" alt="" style="display:none;" />
+                        <div class="img-upload-placeholder" id="imgPlaceholder">
+                            <span>📷</span>
+                            <span>Click to upload image</span>
+                        </div>
+                    </div>
+                    <input type="file" id="ap-image" name="image" accept="image/*" style="display:none;" onchange="previewImage(event)" required />
+                </div>
+
+                <!-- Actions -->
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal-cancel" onclick="closeAddProductModal()">Cancel</button>
+                    <button type="submit" class="btn-modal-submit" id="submitProductBtn">✅ Upload Product</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Toast ── -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script src="./js/api.js"></script>
+    <script src="./js/owner-dashboard.js"></script>
+</body>
+
+</html>

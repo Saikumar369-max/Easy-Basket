@@ -1,0 +1,635 @@
+/* ============================================
+   SHOPPING PAGE STYLES — Easy Basket
+   ============================================ */
+
+/* ---- NAVBAR ---- */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    height: 68px;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-main);
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.nav-search {
+    flex: 1;
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.nav-search input {
+    width: 100%;
+    padding: 10px 16px 10px 44px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    color: var(--text-main);
+    font-family: var(--font-family);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.nav-search input:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.nav-search input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+}
+
+.nav-greeting {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.btn-outline {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.btn-outline:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(234, 88, 12, 0.06);
+}
+
+/* ---- HERO ---- */
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 40px 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    min-height: 420px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hero-bg-glow {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    animation: subtlePulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes subtlePulse {
+    from {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(234, 88, 12, 0.12);
+    border: 1px solid rgba(234, 88, 12, 0.3);
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 22px;
+    letter-spacing: 0.4px;
+}
+
+.hero-title {
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+    color: var(--text-main);
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #fb923c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 36px;
+}
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border-color);
+}
+
+/* Floating emojis */
+.hero-image-wrap {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    flex-shrink: 0;
+}
+
+.hero-emoji-float {
+    position: absolute;
+    font-size: 52px;
+    animation: floatEmoji 4s ease-in-out infinite;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+}
+
+.hero-emoji-float:nth-child(1) {
+    top: 10px;
+    left: 80px;
+    animation-delay: 0s;
+}
+
+.hero-emoji-float:nth-child(2) {
+    top: 100px;
+    left: 10px;
+    animation-delay: 0.8s;
+}
+
+.hero-emoji-float:nth-child(3) {
+    top: 130px;
+    right: 10px;
+    animation-delay: 1.6s;
+}
+
+.hero-emoji-float:nth-child(4) {
+    top: 40px;
+    right: 30px;
+    animation-delay: 2.4s;
+}
+
+@keyframes floatEmoji {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-14px) rotate(3deg);
+    }
+}
+
+/* ---- MAIN CONTENT ---- */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+}
+
+.section {
+    margin-bottom: 60px;
+}
+
+.section-header {
+    margin-bottom: 28px;
+}
+
+.section-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.section-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* ---- CATEGORY PILLS ---- */
+.category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pill {
+    padding: 9px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+.pill:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(234, 88, 12, 0.07);
+}
+
+.pill.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+}
+
+.pill-skeleton {
+    width: 110px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+    animation: shimmer 1.4s infinite linear;
+    border: none;
+    cursor: default;
+}
+
+/* Category navigation pills — redirect on click */
+.cat-nav-pill {
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-family);
+    transition: all 0.2s;
+}
+
+.cat-nav-pill:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.3);
+}
+
+.pill-emoji {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ---- CATEGORY BLOCK ---- */
+.category-block {
+    margin-bottom: 48px;
+    animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-block-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.category-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(234, 88, 12, 0.12);
+    border: 1px solid rgba(234, 88, 12, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.category-block-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.3px;
+}
+
+.category-shop-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* ---- SHOPS GRID ---- */
+.shops-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+/* ---- SHOP CARD (Image-based) ---- */
+.shop-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+    overflow: hidden;
+    position: relative;
+}
+
+.shop-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(234, 88, 12, 0.45);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(234, 88, 12, 0.18);
+}
+
+/* Image area */
+.shop-card-img-wrap {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s;
+}
+
+.shop-card:hover .shop-card-img {
+    transform: scale(1.06);
+}
+
+.shop-card-img-fallback {
+    font-size: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Card body */
+.shop-card-body {
+    padding: 16px 18px 18px;
+}
+
+.shop-card-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.3px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shop-card-address {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 12px;
+}
+
+.shop-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.shop-badge {
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+.badge-open {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.badge-closed {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.shop-tag {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* ---- SKELETON LOADING ---- */
+.skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.skeleton-card {
+    height: 160px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    animation: shimmer 1.4s infinite linear;
+}
+
+@keyframes shimmer {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* ---- EMPTY STATE ---- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.empty-state .empty-emoji {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.empty-state p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* ---- FOOTER ---- */
+.footer {
+    border-top: 1px solid var(--border-color);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+        gap: 12px;
+    }
+
+    .nav-search {
+        display: none;
+    }
+
+    .hero {
+        padding: 50px 20px 50px;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .hero-image-wrap {
+        display: none;
+    }
+
+    .main-content {
+        padding: 40px 20px 60px;
+    }
+
+    .shops-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 20px;
+    }
+}

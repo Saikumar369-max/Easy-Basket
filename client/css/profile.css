@@ -1,0 +1,215 @@
+/* ============================================================
+   EASY BASKET — Profile Page Styles
+   ============================================================ */
+
+/* ── Profile Nav Button (used in shopping.html navbar) ──── */
+.profile-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.profile-nav-btn:hover {
+    background: rgba(234, 88, 12, 0.15);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+/* ── Page Layout ─────────────────────────────────────────── */
+.profile-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color);
+}
+
+.profile-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+/* ── Profile Card ────────────────────────────────────────── */
+.profile-card {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 48px 40px 40px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    animation: profileFadeUp 0.5s ease both;
+}
+
+@keyframes profileFadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Avatar ──────────────────────────────────────────────── */
+.profile-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 24px;
+    box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.2);
+    letter-spacing: 0;
+}
+
+/* ── Name & Email ────────────────────────────────────────── */
+.profile-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.profile-email {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+/* ── Info Rows ───────────────────────────────────────────── */
+.profile-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.profile-info-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+}
+
+.info-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    width: 100%;
+}
+.btn-logout:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+}
+
+/* ── Skeleton Loading ────────────────────────────────────── */
+.profile-skeleton .sk-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    margin: 0 auto 24px;
+    animation: shimmer 1.4s infinite;
+}
+.profile-skeleton .sk-line {
+    height: 14px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.07);
+    margin: 0 auto 12px;
+    animation: shimmer 1.4s infinite;
+}
+.profile-skeleton .sk-line.wide  { width: 70%; }
+.profile-skeleton .sk-line.med   { width: 50%; }
+.profile-skeleton .sk-line.short { width: 35%; }
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+}
+
+/* ── Error state ─────────────────────────────────────────── */
+.profile-error {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+}
+.profile-error .err-emoji { font-size: 48px; margin-bottom: 16px; }
+.profile-error p { font-size: 14px; }

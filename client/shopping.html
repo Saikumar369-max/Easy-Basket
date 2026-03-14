@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Easy Basket</title>
+    <meta name="description" content="Browse categories and local shops on Easy Basket for fast grocery delivery.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/shopping.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/orders.css">
+    <link rel="stylesheet" href="./css/profile.css">
+</head>
+
+<body>
+
+    <!-- ======= NAVBAR ======= -->
+    <nav class="navbar">
+        <a href="shopping.html" class="nav-logo">🛒 Easy Basket</a>
+        <div class="nav-search">
+            <input type="text" id="searchInput" placeholder="Search for products, shops..." autocomplete="off">
+            <span class="search-icon">🔍</span>
+        </div>
+        <div class="nav-actions">
+            <span class="nav-greeting" id="userGreeting">Hello 👋</span>
+            <a href="my-orders.html" class="orders-nav-btn" title="My Orders">📋 My Orders</a>
+            <a href="cart.html" class="cart-nav-btn" title="View Cart">
+                🛒 Cart
+                <span class="cart-badge" id="cartBadge"></span>
+            </a>
+            <a href="profile.html" class="profile-nav-btn" title="View Profile">👤 Profile</a>
+        </div>
+    </nav>
+
+    <!-- ======= HERO SECTION ======= -->
+    <section class="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Fast Delivery · Fresh Picks</div>
+            <h1 class="hero-title">
+                Fresh Groceries,<br>
+                <span class="hero-gradient">Delivered Fast</span>
+            </h1>
+            <p class="hero-subtitle">
+                Browse hundreds of local shops. From organic produce to pantry staples — all in one basket.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-value" id="totalShops">—</span>
+                    <span class="stat-label">Local Shops</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-value" id="totalCategories">—</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-value">30min</span>
+                    <span class="stat-label">Avg. Delivery</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image-wrap">
+            <div class="hero-emoji-float">🥦</div>
+            <div class="hero-emoji-float delay-1">🍎</div>
+            <div class="hero-emoji-float delay-2">🛒</div>
+            <div class="hero-emoji-float delay-3">🥛</div>
+        </div>
+    </section>
+
+    <!-- ======= CATEGORIES & SHOPS ======= -->
+    <main class="main-content">
+
+        <!-- ===== BROWSE BY CATEGORY ===== -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Browse by Category</h2>
+                <p class="section-sub">Click a category to view all products</p>
+            </div>
+            <div class="category-pills" id="categoryPills">
+                <!-- Populated by JS -->
+                <div class="pill pill-skeleton"></div>
+                <div class="pill pill-skeleton"></div>
+                <div class="pill pill-skeleton"></div>
+                <div class="pill pill-skeleton"></div>
+                <div class="pill pill-skeleton"></div>
+            </div>
+        </section>
+
+        <!-- ===== BROWSE BY SHOP ===== -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Browse by Shop</h2>
+                <p class="section-sub">Click a shop to view its products</p>
+            </div>
+            <div id="shopsSection">
+                <div class="skeleton-grid">
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+        <div class="footer-logo">🛒 Easy Basket</div>
+        <p class="footer-copy">© 2026 Easy Basket. Fresh, fast, and local.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/api.js"></script>
+    <script src="./js/shopping.js"></script>
+</body>
+
+</html>

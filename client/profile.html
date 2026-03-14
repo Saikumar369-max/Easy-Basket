@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Easy Basket</title>
+    <meta name="description" content="View and manage your Easy Basket profile.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/shopping.css">
+</head>
+
+<body class="profile-page">
+
+    <!-- ======= NAVBAR ======= -->
+    <nav class="navbar">
+        <a href="shopping.html" class="nav-logo">🛒 Easy Basket</a>
+        <div class="nav-actions">
+            <a href="my-orders.html" class="orders-nav-btn" title="My Orders">📋 My Orders</a>
+            <a href="cart.html" class="cart-nav-btn" title="View Cart">🛒 Cart</a>
+        </div>
+    </nav>
+
+    <!-- ======= PROFILE MAIN ======= -->
+    <main class="profile-main">
+        <div class="profile-card" id="profileCard">
+
+            <!-- Skeleton shown while loading -->
+            <div class="profile-skeleton" id="profileSkeleton">
+                <div class="sk-avatar"></div>
+                <div class="sk-line wide"></div>
+                <div class="sk-line med"></div>
+                <div class="sk-line short"></div>
+            </div>
+
+            <!-- Content hidden until loaded -->
+            <div id="profileContent" style="display:none;">
+                <div class="profile-avatar" id="profileAvatar">👤</div>
+                <div class="profile-name" id="profileName">—</div>
+                <div class="profile-email" id="profileEmail">—</div>
+
+                <ul class="profile-info">
+                    <li class="profile-info-row" id="phoneRow" style="display:none;">
+                        <span class="info-icon">📞</span>
+                        <div>
+                            <div class="info-label">Phone</div>
+                            <div class="info-value" id="profilePhone">—</div>
+                        </div>
+                    </li>
+                    <li class="profile-info-row">
+                        <span class="info-icon">📅</span>
+                        <div>
+                            <div class="info-label">Member Since</div>
+                            <div class="info-value" id="profileSince">—</div>
+                        </div>
+                    </li>
+                    <li class="profile-info-row">
+                        <span class="info-icon">🛡️</span>
+                        <div>
+                            <div class="info-label">Account Status</div>
+                            <div class="info-value" style="color:#10b981;">✔ Active</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="profile-actions">
+                    <a href="shopping.html" class="btn-back">← Back to Shopping</a>
+                    <button class="btn-logout" id="logoutBtn">🚪 Logout</button>
+                </div>
+            </div>
+
+            <!-- Error state -->
+            <div id="profileError" style="display:none;" class="profile-error">
+                <div class="err-emoji">⚠️</div>
+                <p>Could not load your profile.<br>Please check your connection and try again.</p>
+                <br>
+                <button class="btn-logout" id="logoutBtnErr">🚪 Logout</button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+        <div class="footer-logo">🛒 Easy Basket</div>
+        <p class="footer-copy">© 2026 Easy Basket. Fresh, fast, and local.</p>
+    </footer>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/profile.js"></script>
+</body>
+
+</html>

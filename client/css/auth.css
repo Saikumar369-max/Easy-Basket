@@ -1,0 +1,139 @@
+/* Authentication Pages Layout */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Ambient glow behind the auth card */
+.auth-container::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.15) 0%, rgba(234, 88, 12, 0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.auth-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    padding: 40px 32px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.auth-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Form Elements */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+/* Fix input placeholder color for dark mode */
+.form-group input::placeholder,
+.form-group select::placeholder {
+    color: var(--text-muted);
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group-half {
+    flex: 1;
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.auth-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+}

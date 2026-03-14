@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product — Easy Basket</title>
+    <meta name="description" content="View full product details on Easy Basket.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/shopping.css">
+    <link rel="stylesheet" href="./css/category-products.css">
+    <link rel="stylesheet" href="./css/product-detail.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/orders.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="shopping.html" class="nav-logo">🛒 Easy Basket</a>
+        <div class="nav-actions">
+            <span class="nav-greeting" id="userGreeting">Hello 👋</span>
+            <a href="my-orders.html" class="orders-nav-btn" title="My Orders">📋 My Orders</a>
+            <a href="cart.html" class="cart-nav-btn" title="View Cart">
+                🛒 Cart
+                <span class="cart-badge" id="cartBadge"></span>
+            </a>
+            <button class="btn btn-outline" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="shopping.html">🏠 Home</a>
+        <span class="bc-sep">›</span>
+        <span id="bcPrev" class="bc-prev">Products</span>
+        <span class="bc-sep">›</span>
+        <span id="bcProduct" class="bc-active">Loading…</span>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <a href="#" class="back-btn" id="backBtn" onclick="history.back(); return false;">
+        ← Back
+    </a>
+
+    <!-- MAIN CONTENT -->
+    <main class="detail-main" id="detailMain">
+
+        <!-- SKELETON while loading -->
+        <div class="skeleton-card" id="skeleton">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-info">
+                <div class="skeleton-line short"></div>
+                <div class="skeleton-line wide"></div>
+                <div class="skeleton-line med"></div>
+                <div class="skeleton-line short"></div>
+                <div class="skeleton-line med"></div>
+            </div>
+        </div>
+
+        <!-- PRODUCT CARD (hidden until loaded) -->
+        <div class="detail-card" id="detailCard" style="display:none;">
+
+            <!-- Left: Image -->
+            <div class="detail-img-panel" id="imgPanel">
+                <div class="detail-img-fallback" id="imgFallback">🛒</div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="detail-info">
+                <span class="detail-category-tag" id="categoryTag">Category</span>
+                <h1 class="detail-name" id="productName">—</h1>
+                <p class="detail-short-desc" id="shortDesc"></p>
+
+                <div class="detail-price-row" id="priceRow"></div>
+
+                <div class="detail-meta" id="metaChips"></div>
+
+                <div id="stockBadge"></div>
+
+                <a href="#" class="detail-shop-link" id="shopLink" style="display:none;">
+                    <span class="shop-link-icon">🏪</span>
+                    <span>
+                        <span class="shop-link-label">Sold by</span>
+                        <span class="shop-link-name" id="shopLinkName">—</span>
+                    </span>
+                </a>
+
+                <button class="detail-add-btn" id="addToCartBtn">+ Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Description section -->
+        <div class="detail-desc-section" id="descSection" style="display:none;">
+            <h2>Description</h2>
+            <div class="detail-desc-text" id="descText"></div>
+        </div>
+
+        <!-- Error state -->
+        <div class="detail-error" id="errorState" style="display:none;">
+            <span class="err-emoji">😕</span>
+            <h2>Product not found</h2>
+            <p>We couldn't load this product. It may have been removed.</p>
+            <a href="shopping.html">← Back to Shopping</a>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">🛒 Easy Basket</div>
+        <p class="footer-copy">© 2026 Easy Basket. Fresh, fast, and local.</p>
+    </footer>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/product-detail.js"></script>
+</body>
+
+</html>

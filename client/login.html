@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Easy Basket</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/auth.css">
+</head>
+
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">            <div class="auth-header">
+                <div class="logo">
+                    🛒 Easy Basket
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Please enter your details to sign in.</p>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+                <div style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    <a href="owner-login.html"
+                        style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Login as Shop Owner</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/api.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

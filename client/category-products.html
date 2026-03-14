@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category — Easy Basket</title>
+    <meta name="description" content="Browse all products in this category on Easy Basket.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/shopping.css">
+    <link rel="stylesheet" href="./css/category-products.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/orders.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="shopping.html" class="nav-logo">🛒 Easy Basket</a>
+        <div class="nav-search">
+            <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+            <span class="search-icon">🔍</span>
+        </div>
+        <div class="nav-actions">
+            <span class="nav-greeting" id="userGreeting">Hello 👋</span>
+            <a href="my-orders.html" class="orders-nav-btn" title="My Orders">📋 My Orders</a>
+            <a href="cart.html" class="cart-nav-btn" title="View Cart">
+                🛒 Cart
+                <span class="cart-badge" id="cartBadge"></span>
+            </a>
+            <button class="btn btn-outline" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="shopping.html">🏠 Home</a>
+        <span class="bc-sep">›</span>
+        <span id="breadcrumbCat" class="bc-active">Category</span>
+    </div>
+
+    <!-- CATEGORY HERO BANNER -->
+    <section class="cat-hero">
+        <div class="cat-hero-glow"></div>
+        <div class="cat-hero-content">
+            <div class="cat-hero-emoji" id="catHeroEmoji">🏷️</div>
+            <div>
+                <h1 class="cat-hero-title" id="catHeroTitle">Loading...</h1>
+                <p class="cat-hero-sub" id="catHeroSub">Fetching products...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-left">
+            <span class="filter-label">Sort by:</span>
+            <select id="sortSelect" class="filter-select">
+                <option value="default">Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name">Name A–Z</option>
+            </select>
+        </div>
+        <div class="filter-right">
+            <span class="result-count" id="resultCount">— products</span>
+        </div>
+    </div>
+
+    <!-- PRODUCTS GRID -->
+    <main class="products-main">
+        <div class="products-grid" id="productsGrid">
+            <!-- skeleton -->
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">🛒 Easy Basket</div>
+        <p class="footer-copy">© 2026 Easy Basket. Fresh, fast, and local.</p>
+    </footer>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/category-products.js"></script>
+</body>
+
+</html>
