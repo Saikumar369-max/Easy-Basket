@@ -1,6 +1,7 @@
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const ShopOrder = require('../models/shoporders');
+const Product = require('../models/Product');
 
 
 const placeOrder = async (req, res) => {
@@ -25,7 +26,7 @@ const placeOrder = async (req, res) => {
         }
 
         for(const prod of cart.items){
-            const product = await product.findById(prod.productId);
+            const product = await Product.findById(prod.productId);
             if(product.stock.quantity < prod.quantity){
                 return res.status(400).json({ message: 'Product out of stock', product : prod.productId});
             }
