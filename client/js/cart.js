@@ -2,7 +2,10 @@
 //  EASY BASKET — Cart Page
 // ============================================================
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL =
+  (window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://easy-basket.onrender.com') + '/api';
 
 // ── Auth guard ────────────────────────────────────────────────
 const token = localStorage.getItem('token');

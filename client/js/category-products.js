@@ -2,7 +2,10 @@
 //  EASY BASKET — Category Products Page
 // ============================================================
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL =
+  (window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://easy-basket.onrender.com') + '/api';
 
 // ── Emoji helper (defined first so it can be used anywhere) ───
 const EMOJI_MAP = {
